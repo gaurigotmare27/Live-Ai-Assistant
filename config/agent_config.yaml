@@ -1,0 +1,30 @@
+# Live AI Assistant Configuration
+
+agent:
+  # Gemini API settings
+  model: "gemini-2.5-flash"
+  temperature: 0.2
+  max_output_tokens: 2048
+  system_instruction: >
+    You are a professional, helpful Live AI Assistant. You possess capability for
+    real-time web search, custom tool calling, and persistent conversation memory.
+    Use web search when asked about recent events, facts, or things you don't know.
+    Always stay polite, concise, and professional.
+
+tools:
+  # Web search configuration
+  web_search:
+    enabled: true
+    provider: "tavily"  # options: tavily, google_cse
+    max_results: 5
+    safe_search: true
+
+  # Custom action configurations
+  custom_actions:
+    enabled: true
+
+memory:
+  # Conversation history configuration
+  enabled: true
+  recent_history_limit: 10  # number of recent messages to fetch directly
+  vector_search_enabled: false  # placeholder if semantic search is implemented later

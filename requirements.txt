@@ -1,0 +1,16 @@
+# Core API and Server
+fastapi>=0.110.0
+uvicorn[standard]>=0.28.0
+pydantic>=2.6.0
+python-dotenv>=1.0.1
+PyYAML>=6.0.1
+
+# Gemini SDK
+google-genai>=0.1.0
+
+# Database and ORM
+sqlalchemy>=2.0.28
+
+# Utilities and Network
+requests>=2.31.0
+aiohttp>=3.9.3
