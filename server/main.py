@@ -1,5 +1,6 @@
 import os
 from fastapi import FastAPI, Depends, WebSocket, WebSocketDisconnect, HTTPException
+from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
@@ -42,9 +43,14 @@ class ChatResponse(BaseModel):
     session_id: str
     response: str
 
-@app.get("/")
+@app.get("/", response_class=HTMLResponse)
 def read_root():
-    return {"status": "healthy", "service": "Live AI Assistant API"}
+    """Serve the Web UI frontend."""
+    index_path = os.path.join(os.path.dirname(__file__), "..", "index.html")
+    if os.path.exists(index_path):
+        with open(index_path, "r", encoding="utf-8") as f:
+            return HTMLResponse(content=f.read())
+    return HTMLResponse(content="<h1>Live AI Assistant Backend</h1><p>index.html not found.</p>", status_code=404)
 
 @app.post("/api/chat", response_model=ChatResponse)
 def rest_chat_endpoint(payload: ChatRequest, db: Session = Depends(get_db)):

@@ -95,7 +95,8 @@ class TestLiveAIAssistant(unittest.TestCase):
         # 1. Health check
         response = self.client.get("/")
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json(), {"status": "healthy", "service": "Live AI Assistant API"})
+        self.assertIn("text/html", response.headers.get("content-type", ""))
+        self.assertIn("Live AI Assistant Dashboard", response.text)
 
         # 2. Chat endpoint
         payload = {"session_id": "test-session-rest", "message": "Hello Agent"}
