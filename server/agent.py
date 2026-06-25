@@ -32,7 +32,7 @@ class LiveAIAgent:
     def __init__(self):
         self.config = load_config()
         self.agent_cfg = self.config.get("agent", {})
-        self.model_name = self.agent_cfg.get("model", "gemini-2.5-flash")
+        self.model_name = self.agent_cfg.get("model", "gemini-3.1-flash-lite")
         self.system_instruction = self.agent_cfg.get(
             "system_instruction", 
             "You are a helpful assistant."
@@ -50,6 +50,10 @@ class LiveAIAgent:
                     "Please ensure it is defined in your .env file at the project root."
                 )
             gemini_key = "dummy_key_for_testing"
+            
+        # Clean up GOOGLE_API_KEY if present in environment to prevent SDK credentials collisions
+        if "GOOGLE_API_KEY" in os.environ:
+            del os.environ["GOOGLE_API_KEY"]
             
         self.client = genai.Client(api_key=gemini_key)
         
