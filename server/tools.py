@@ -30,7 +30,7 @@ def web_search(query: str, max_results: int = 5) -> List[Dict[str, Any]]:
             return [{"error": f"Tavily search failed: {str(e)}"}]
             
     # Placeholder for standard Google Search API / Custom Search Engine ID
-    google_key = os.getenv("GOOGLE_API_KEY")
+    google_key = os.getenv("GOOGLE_SEARCH_API_KEY") or os.getenv("GOOGLE_API_KEY")
     google_cse = os.getenv("GOOGLE_CSE_ID")
     if google_key and google_cse:
         try:
@@ -55,7 +55,7 @@ def web_search(query: str, max_results: int = 5) -> List[Dict[str, Any]]:
     return [{
         "title": "Local Mock Search Result",
         "url": "https://example.com/mock",
-        "content": f"Mock result for query: '{query}'. Set TAVILY_API_KEY or GOOGLE_API_KEY in .env to search the web live."
+        "content": f"Mock result for query: '{query}'. Set TAVILY_API_KEY or GOOGLE_SEARCH_API_KEY in .env to search the web live."
     }]
 
 def get_agent_tools() -> list:

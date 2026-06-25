@@ -1,9 +1,16 @@
 import os
+import sys
+from pathlib import Path
 import yaml
 from typing import Dict, Any, List
 from google import genai
 from google.genai import types
 from sqlalchemy.orm import Session
+from dotenv import load_dotenv
+
+# Load environment variables from the root .env file relative to this file
+env_path = Path(__file__).resolve().parent.parent / '.env'
+load_dotenv(dotenv_path=env_path)
 
 from server.memory import get_session_history, save_message
 from server.tools import get_agent_tools, web_search
@@ -32,8 +39,19 @@ class LiveAIAgent:
         )
         
         # Initialize Google GenAI Client
-        # Automatically pulls GEMINI_API_KEY from environment variables
-        self.client = genai.Client()
+        # Explicitly pass GEMINI_API_KEY to ensure the correct key is used
+        gemini_key = os.getenv("GEMINI_API_KEY")
+        if not gemini_key:
+            # Fallback for testing environments where the API client is mocked
+            is_testing = 'unittest' in sys.modules or 'pytest' in sys.modules
+            if not is_testing:
+                raise ValueError(
+                    "GEMINI_API_KEY environment variable is not set or is empty. "
+                    "Please ensure it is defined in your .env file at the project root."
+                )
+            gemini_key = "dummy_key_for_testing"
+            
+        self.client = genai.Client(api_key=gemini_key)
         
     def _prepare_history(self, db_history: List[Any]) -> List[types.Content]:
         """Convert stored ChatMessage database records into Gemini SDK Content objects."""

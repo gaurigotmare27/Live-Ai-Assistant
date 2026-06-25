@@ -1,17 +1,24 @@
 import os
+import sys
+
+# Add parent directory to sys.path to support running this file directly
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 from fastapi import FastAPI, Depends, WebSocket, WebSocketDisconnect, HTTPException
 from fastapi.responses import HTMLResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
+from pathlib import Path
 from dotenv import load_dotenv
+
+# Load environment variables from the root .env file relative to this file
+env_path = Path(__file__).resolve().parent.parent / '.env'
+load_dotenv(dotenv_path=env_path)
 
 from server.database import engine, Base, get_db
 from server.agent import LiveAIAgent
 from server.memory import clear_session_history
-
-# Load environment variables
-load_dotenv()
 
 # Initialize database tables
 Base.metadata.create_all(bind=engine)
