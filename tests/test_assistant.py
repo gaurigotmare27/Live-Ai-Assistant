@@ -96,7 +96,7 @@ class TestLiveAIAssistant(unittest.TestCase):
         response = self.client.get("/")
         self.assertEqual(response.status_code, 200)
         self.assertIn("text/html", response.headers.get("content-type", ""))
-        self.assertIn("Cyber Bento Console", response.text)
+        self.assertIn("Quantum AI Console", response.text)
 
         # 2. Chat endpoint
         payload = {"session_id": "test-session-rest", "message": "Hello Agent"}
