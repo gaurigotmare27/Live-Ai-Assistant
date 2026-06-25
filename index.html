@@ -10,19 +10,27 @@
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #06050b;
-            --grid-color: rgba(255, 0, 127, 0.03);
-            --card-bg: rgba(13, 11, 26, 0.7);
-            --border-glow: rgba(255, 0, 127, 0.15);
-            --border-color: rgba(255, 255, 255, 0.05);
+            --bg-color: #0c091e;
+            --mesh-color-1: #1a1040;
+            --mesh-color-2: #070412;
+            --mesh-color-3: #ff007f;
+            --mesh-color-4: #00e5ff;
+            --grid-color: rgba(0, 229, 255, 0.025);
+            --card-bg: rgba(20, 15, 45, 0.45);
+            --border-glow: rgba(0, 229, 255, 0.2);
+            --border-color: rgba(255, 255, 255, 0.08);
             --accent-pink: #ff007f;
             --accent-pink-glow: rgba(255, 0, 127, 0.4);
-            --accent-green: #00ff66;
-            --accent-green-glow: rgba(0, 255, 102, 0.4);
+            --accent-cyan: #00e5ff;
+            --accent-cyan-glow: rgba(0, 229, 255, 0.4);
+            --accent-purple: #bd00ff;
+            --accent-purple-glow: rgba(189, 0, 255, 0.4);
+            --accent-green: #39ff14;
+            --accent-green-glow: rgba(57, 255, 20, 0.4);
             --accent-amber: #ffaa00;
             --accent-amber-glow: rgba(255, 170, 0, 0.4);
-            --text-main: #f1f0f7;
-            --text-muted: #7d7a96;
+            --text-main: #ffffff;
+            --text-muted: #a59fb8;
             --font-main: 'Space Grotesk', sans-serif;
             --font-mono: 'Space Mono', monospace;
         }
@@ -35,7 +43,13 @@
 
         body {
             font-family: var(--font-main);
-            background-color: var(--bg-color);
+            background: radial-gradient(at 0% 0%, var(--mesh-color-1) 0px, transparent 50%),
+                        radial-gradient(at 100% 0%, rgba(189, 0, 255, 0.18) 0px, transparent 55%),
+                        radial-gradient(at 100% 100%, rgba(0, 229, 255, 0.15) 0px, transparent 50%),
+                        radial-gradient(at 0% 100%, rgba(255, 0, 127, 0.15) 0px, transparent 50%),
+                        var(--mesh-color-2);
+            background-size: 200% 200%;
+            animation: meshFlow 20s ease infinite alternate;
             color: var(--text-main);
             height: 100vh;
             display: flex;
@@ -43,6 +57,12 @@
             align-items: center;
             overflow: hidden;
             position: relative;
+        }
+
+        @keyframes meshFlow {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 100%; }
+            100% { background-position: 0% 100%; }
         }
 
         /* Cyber Grid Background & Scanlines */
@@ -53,7 +73,7 @@
             background-image: 
                 linear-gradient(to right, var(--grid-color) 1px, transparent 1px),
                 linear-gradient(to bottom, var(--grid-color) 1px, transparent 1px);
-            background-size: 40px 40px;
+            background-size: 50px 50px;
             pointer-events: none;
             z-index: 1;
         }
@@ -62,43 +82,43 @@
             content: "";
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%);
+            background: linear-gradient(rgba(12, 10, 20, 0) 50%, rgba(0, 0, 0, 0.3) 50%);
             background-size: 100% 4px;
             z-index: 10;
             pointer-events: none;
-            opacity: 0.35;
+            opacity: 0.25;
         }
 
         /* Holographic Glow Particles */
         .glow-orb {
             position: absolute;
-            width: 400px;
-            height: 400px;
+            width: 450px;
+            height: 450px;
             border-radius: 50%;
             pointer-events: none;
             z-index: 1;
-            filter: blur(100px);
-            opacity: 0.15;
+            filter: blur(120px);
+            opacity: 0.22;
         }
 
         .orb-1 {
             background: var(--accent-pink);
-            top: -100px;
-            left: -100px;
-            animation: float 20s infinite alternate;
+            top: -120px;
+            left: -120px;
+            animation: float 25s infinite alternate;
         }
 
         .orb-2 {
-            background: var(--accent-green);
-            bottom: -150px;
-            right: -100px;
-            animation: float 25s infinite alternate-reverse;
+            background: var(--accent-cyan);
+            bottom: -180px;
+            right: -120px;
+            animation: float 30s infinite alternate-reverse;
         }
 
         @keyframes float {
             0% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(50px, 30px) scale(1.1); }
-            100% { transform: translate(-30px, 50px) scale(0.9); }
+            50% { transform: translate(60px, 40px) scale(1.15); }
+            100% { transform: translate(-40px, 60px) scale(0.9); }
         }
 
         /* Bento Grid Wrapper */
@@ -116,16 +136,16 @@
         /* Bento Cards Standard */
         .bento-card {
             background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(24px) saturate(140%);
+            -webkit-backdrop-filter: blur(24px) saturate(140%);
             border: 1px solid var(--border-color);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border-radius: 24px;
+            box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
             display: flex;
             flex-direction: column;
             overflow: hidden;
             position: relative;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
 
         .bento-card::before {
@@ -136,8 +156,9 @@
         }
 
         .bento-card:hover {
-            border-color: rgba(255, 0, 127, 0.25);
-            box-shadow: 0 10px 35px rgba(255, 0, 127, 0.05);
+            border-color: rgba(0, 229, 255, 0.3);
+            box-shadow: 0 12px 45px rgba(0, 229, 255, 0.08);
+            transform: translateY(-2px);
         }
 
         .card-header {
@@ -393,15 +414,97 @@
             grid-template-rows: 150px 1fr;
         }
 
-        /* Core Waveform Vis */
+        /* Core Waveform Vis & Hologram */
         .waveform-core {
             display: flex;
             align-items: center;
             justify-content: center;
             height: 100%;
             border-bottom: 1px solid var(--border-color);
-            background: linear-gradient(180deg, rgba(255, 0, 127, 0.02), transparent);
+            background: linear-gradient(180deg, rgba(0, 229, 255, 0.04), transparent);
             position: relative;
+            gap: 50px;
+            padding-top: 15px;
+        }
+
+        /* Holographic AI Core Styling */
+        .hologram-container {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .hologram-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px dashed transparent;
+            transition: all 0.5s ease;
+        }
+
+        .ring-1 {
+            width: 90px;
+            height: 90px;
+            border-color: rgba(0, 229, 255, 0.4);
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.15);
+            animation: rotateClockwise 12s linear infinite;
+        }
+
+        .ring-2 {
+            width: 70px;
+            height: 70px;
+            border-color: rgba(255, 0, 127, 0.4);
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.15);
+            animation: rotateCounterClockwise 8s linear infinite;
+        }
+
+        .ring-3 {
+            width: 50px;
+            height: 50px;
+            border: 1px dotted rgba(189, 0, 255, 0.5);
+            animation: rotateClockwise 16s linear infinite;
+        }
+
+        .hologram-core {
+            width: 30px;
+            height: 30px;
+            background: radial-gradient(circle, var(--accent-cyan) 0%, var(--accent-pink) 70%, transparent 100%);
+            border-radius: 50%;
+            box-shadow: 0 0 25px var(--accent-cyan);
+            animation: pulse-core 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes rotateClockwise {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes rotateCounterClockwise {
+            from { transform: rotate(360deg); }
+            to { transform: rotate(0deg); }
+        }
+
+        @keyframes pulse-core {
+            0% { transform: scale(0.9); opacity: 0.7; box-shadow: 0 0 15px var(--accent-pink-glow); }
+            100% { transform: scale(1.15); opacity: 1; box-shadow: 0 0 35px var(--accent-cyan); }
+        }
+
+        /* Core states styling */
+        .waveform-core.thinking .ring-1 {
+            border-color: var(--accent-pink);
+            animation: rotateClockwise 2.5s linear infinite;
+        }
+        .waveform-core.thinking .ring-2 {
+            border-color: var(--accent-amber);
+            animation: rotateCounterClockwise 1.8s linear infinite;
+        }
+        .waveform-core.thinking .hologram-core {
+            background: radial-gradient(circle, var(--accent-amber) 0%, var(--accent-pink) 70%, transparent 100%);
+            box-shadow: 0 0 35px var(--accent-pink);
+            animation: pulse-core 0.5s ease-in-out infinite alternate;
         }
 
         .waveform-grid {
@@ -513,19 +616,19 @@
         }
 
         .console-row.user .console-bubble {
-            background: rgba(255, 0, 127, 0.08);
-            border: 1px solid rgba(255, 0, 127, 0.25);
+            background: linear-gradient(135deg, rgba(255, 0, 127, 0.15), rgba(189, 0, 255, 0.08));
+            border: 1px solid rgba(255, 0, 127, 0.35);
             color: var(--text-main);
             border-bottom-right-radius: 4px;
-            box-shadow: 0 4px 15px rgba(255, 0, 127, 0.04);
+            box-shadow: 0 4px 20px rgba(255, 0, 127, 0.08);
         }
 
         .console-row.assistant .console-bubble {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-color);
+            background: linear-gradient(135deg, rgba(0, 229, 255, 0.06), rgba(20, 15, 45, 0.4));
+            border: 1px solid rgba(0, 229, 255, 0.25);
             color: var(--text-main);
             border-bottom-left-radius: 4px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 229, 255, 0.04);
         }
 
         /* Assistant box decoration border */
@@ -533,8 +636,8 @@
             content: '';
             position: absolute;
             left: -1px; top: -1px; width: 8px; height: 8px;
-            border-left: 2px solid var(--accent-green);
-            border-top: 2px solid var(--accent-green);
+            border-left: 2px solid var(--accent-cyan);
+            border-top: 2px solid var(--accent-cyan);
         }
 
         .console-row.system .console-bubble {
@@ -786,6 +889,153 @@
         ::-webkit-scrollbar-thumb:hover {
             background: rgba(255, 0, 127, 0.15);
         }
+
+        /* Thinking/Status Card Styling */
+        .thinking-bubble {
+            background: rgba(13, 11, 26, 0.9) !important;
+            border: 1px solid var(--border-color) !important;
+            min-width: 280px;
+            box-shadow: 0 8px 32px rgba(255, 0, 127, 0.05) !important;
+        }
+
+        .thinking-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding-bottom: 8px;
+        }
+
+        .thinking-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-amber);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-amber-glow);
+            animation: pulse-indicator 1s infinite;
+        }
+
+        .thinking-title {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-main);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        .thinking-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .thinking-step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+            transition: all 0.3s ease;
+        }
+
+        .thinking-step.active {
+            color: var(--accent-pink);
+            text-shadow: 0 0 8px var(--accent-pink-glow);
+        }
+
+        .thinking-step.active .step-bullet {
+            color: var(--accent-pink);
+            animation: blink 1s infinite alternate;
+        }
+
+        .thinking-step.completed {
+            color: var(--accent-green);
+            text-shadow: 0 0 8px var(--accent-green-glow);
+        }
+
+        .thinking-step.completed .step-bullet {
+            color: var(--accent-green);
+        }
+
+        .step-bullet {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        @keyframes blink {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
+        /* Session Item Styling */
+        .session-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 10px 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+        }
+
+        .session-item:hover {
+            border-color: rgba(255, 0, 127, 0.3);
+            background: rgba(255, 0, 127, 0.02);
+            color: var(--text-main);
+        }
+
+        .session-item.active {
+            background: rgba(255, 0, 127, 0.06);
+            border-color: var(--accent-pink);
+            color: var(--text-main);
+            box-shadow: 0 0 10px rgba(255, 0, 127, 0.05);
+        }
+
+        .session-item .session-label {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            flex: 1;
+            margin-right: 8px;
+        }
+
+        .session-item .session-delete {
+            opacity: 0.4;
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            font-weight: bold;
+        }
+
+        .session-item .session-delete:hover {
+            opacity: 1;
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+        }
+
+        /* Typing Effect Styling */
+        .typing-active {
+            position: relative;
+        }
+        
+        .typing-active::after {
+            content: "█";
+            font-family: var(--font-mono);
+            font-size: 0.88rem;
+            color: var(--accent-green);
+            animation: blink 0.8s infinite alternate;
+            margin-left: 2px;
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
@@ -815,14 +1065,20 @@
                     </div>
                 </div>
 
-                <!-- Session ID -->
+                <!-- Active Memory Session -->
                 <div class="setting-group">
-                    <div class="setting-label">Active Memory session</div>
-                    <div class="session-container">
-                        <input type="text" id="session-id-input" class="cyber-input" value="session-default">
-                        <button class="cyber-icon-btn" onclick="generateSessionId()" title="Generate Random Session ID">
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
-                        </button>
+                    <div class="setting-label">Active Session ID</div>
+                    <input type="text" id="session-id-input" class="cyber-input" readonly style="background: rgba(255,255,255,0.02); color: var(--text-muted); cursor: not-allowed; border-color: transparent;">
+                </div>
+
+                <!-- Session Archives Sidebar -->
+                <div class="setting-group" style="flex: 1; display: flex; flex-direction: column; overflow: hidden; min-height: 200px; margin-top: 10px;">
+                    <div class="setting-label" style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.04); padding-bottom: 4px;">
+                        <span>Session Archives</span>
+                        <span style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--accent-pink); cursor: pointer;" onclick="createNewSession()">[+ NEW]</span>
+                    </div>
+                    <div id="session-list" style="margin-top: 10px; flex: 1; overflow-y: auto; display: flex; flex-direction: column; gap: 8px; padding-right: 2px;">
+                        <!-- Dynamically filled session list -->
                     </div>
                 </div>
 
@@ -854,13 +1110,20 @@
         <!-- CENTER PANEL: ACTIVE CORE -->
         <div class="bento-card center-panel">
             
-            <!-- Waveform visualizer -->
+            <!-- Waveform visualizer & Holographic AI Core -->
             <div class="waveform-core active" id="core-visualizer">
                 <div class="core-header-overlay">
                     <span>COGNITIVE CORE</span>
                     <span id="core-status-title">Core Idle</span>
                 </div>
                 
+                <div class="hologram-container">
+                    <div class="hologram-ring ring-1"></div>
+                    <div class="hologram-ring ring-2"></div>
+                    <div class="hologram-ring ring-3"></div>
+                    <div class="hologram-core"></div>
+                </div>
+
                 <div class="waveform-grid">
                     <div class="wave-bar" style="height: 12px;"></div>
                     <div class="wave-bar" style="height: 25px;"></div>
@@ -961,6 +1224,8 @@
         let wsConnection = null;
         let dbMessageCount = 0;
         let uptimeSeconds = 0;
+        let sessions = [];
+        let thinkingTimer = null;
 
         const messagesViewport = document.getElementById('chat-messages-viewport');
         const consoleInputBox = document.getElementById('console-input-box');
@@ -991,7 +1256,7 @@
         logEvent('db', 'DB SQLite mapped to live_assistant.db');
         logEvent('sys', 'REST API channels loaded at GET / & POST /api/chat');
         logEvent('sys', 'WebSocket stream stub listening at /ws/live/');
-        generateSessionId();
+        initSessionArchives();
 
         function logEvent(tag, content) {
             const time = new Date().toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' });
@@ -1009,15 +1274,145 @@
             logsContainer.scrollTop = logsContainer.scrollHeight;
         }
 
-        function generateSessionId() {
-            const rand = Math.random().toString(36).substring(2, 10);
-            sessionInput.value = `session-${rand}`;
-            logEvent('sys', `Generated new session address: ${sessionInput.value}`);
+        // --- Session Archives Manager ---
+        function initSessionArchives() {
+            const stored = localStorage.getItem('assistant_sessions');
+            if (stored) {
+                try {
+                    sessions = JSON.parse(stored);
+                } catch(e) {
+                    sessions = [];
+                }
+            }
+            
+            if (sessions.length === 0) {
+                sessions = ['session-default'];
+                saveSessionsToStorage();
+            }
+
+            renderSessionList();
+            selectSession(sessions[0]);
+        }
+
+        function saveSessionsToStorage() {
+            localStorage.setItem('assistant_sessions', JSON.stringify(sessions));
+        }
+
+        function renderSessionList() {
+            const listContainer = document.getElementById('session-list');
+            listContainer.innerHTML = '';
+            
+            sessions.forEach(sid => {
+                const activeClass = sid === sessionInput.value ? 'active' : '';
+                const item = document.createElement('div');
+                item.className = `session-item ${activeClass}`;
+                item.onclick = () => selectSession(sid);
+                
+                const label = document.createElement('span');
+                label.className = 'session-label';
+                label.textContent = sid;
+                label.title = sid;
+                
+                const deleteBtn = document.createElement('span');
+                deleteBtn.className = 'session-delete';
+                deleteBtn.textContent = '×';
+                deleteBtn.title = 'Delete Session';
+                deleteBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    deleteSessionArchive(sid);
+                };
+                
+                item.appendChild(label);
+                item.appendChild(deleteBtn);
+                listContainer.appendChild(item);
+            });
+        }
+
+        function createNewSession() {
+            const id = prompt("Enter a unique Session ID (or leave blank to generate):");
+            let sid = id ? id.trim().replace(/\s+/g, '-') : '';
+            if (id !== null) {
+                if (!sid) {
+                    const rand = Math.random().toString(36).substring(2, 10);
+                    sid = `session-${rand}`;
+                }
+                
+                if (!sessions.includes(sid)) {
+                    sessions.unshift(sid);
+                    saveSessionsToStorage();
+                }
+                
+                selectSession(sid);
+                logEvent('sys', `Created and switched to session: ${sid}`);
+            }
+        }
+
+        async function selectSession(sid) {
+            sessionInput.value = sid;
+            renderSessionList();
+            logEvent('sys', `Selected Session: ${sid}`);
+            
+            messagesViewport.innerHTML = '';
+            appendSystemMessage(`Retrieving session history for ${sid}...`);
+            
+            try {
+                const response = await fetch(`/api/chat/${sid}`);
+                messagesViewport.innerHTML = '';
+                if (response.ok) {
+                    const history = await response.json();
+                    dbMessageCount = history.length;
+                    metricMemoryBlocks.textContent = dbMessageCount;
+                    const percentage = Math.min(dbMessageCount * 5, 100);
+                    metricMemoryChart.style.width = `${percentage}%`;
+
+                    if (history.length === 0) {
+                        appendSystemMessage(`SYSTEM: Session initialized. Persistent memory empty for ${sid}.`);
+                    } else {
+                        history.forEach(msg => {
+                            appendMessage(msg.role === 'user' ? 'user' : 'assistant', msg.content);
+                        });
+                        appendSystemMessage(`SYSTEM: Retrieved ${history.length} database logs for session ${sid}.`);
+                    }
+                } else {
+                    logEvent('sys', `Failed to load history for ${sid}. Code: ${response.status}`);
+                    appendSystemMessage(`SYSTEM ERROR: Could not sync history from server.`);
+                }
+            } catch(e) {
+                messagesViewport.innerHTML = '';
+                logEvent('sys', `History sync connection refused: ${e.message}`);
+                appendSystemMessage(`SYSTEM ERROR: Connection refused while retrieving logs.`);
+            }
 
             if (currentMode === 'ws') {
                 connectWebSocket();
-            } else {
-                appendSystemMessage(`Memory channel shifted to: ${sessionInput.value}`);
+            }
+        }
+
+        async function deleteSessionArchive(sid) {
+            if (confirm(`Are you sure you want to permanently delete session memory for '${sid}'?`)) {
+                logEvent('db', `Initiating purge for session ${sid}`);
+                try {
+                    const response = await fetch(`/api/chat/${sid}`, { method: 'DELETE' });
+                    if (response.ok) {
+                        logEvent('db', `Successfully wiped memory archives for ${sid}`);
+                        
+                        sessions = sessions.filter(s => s !== sid);
+                        if (sessions.length === 0) {
+                            sessions = ['session-default'];
+                        }
+                        saveSessionsToStorage();
+                        
+                        if (sessionInput.value === sid) {
+                            selectSession(sessions[0]);
+                        } else {
+                            renderSessionList();
+                        }
+                    } else {
+                        logEvent('sys', `Database clear failed on server. Code: ${response.status}`);
+                    }
+                } catch(e) {
+                    logEvent('sys', `Database purge connection failed: ${e.message}`);
+                }
             }
         }
 
@@ -1066,6 +1461,7 @@
 
                 wsConnection.onmessage = (event) => {
                     setThinking(false);
+                    hideThinkingCard();
                     try {
                         const data = JSON.parse(event.data);
                         if (data.type === 'status') {
@@ -1073,12 +1469,12 @@
                             appendSystemMessage(`STATUS: ${data.content}`);
                         } else if (data.type === 'response') {
                             logEvent('agent', `WS Response payload successfully received.`);
-                            appendMessage('assistant', data.content);
+                            typeMessage('assistant', data.content);
                             incrementMemoryBlock();
                         }
                     } catch (e) {
                         logEvent('agent', `WS Raw text response received.`);
-                        appendMessage('assistant', event.data);
+                        typeMessage('assistant', event.data);
                     }
                 };
 
@@ -1125,9 +1521,83 @@
         function incrementMemoryBlock() {
             dbMessageCount += 2;
             metricMemoryBlocks.textContent = dbMessageCount;
-            // Chart progress limit to 100
             const percentage = Math.min(dbMessageCount * 5, 100);
             metricMemoryChart.style.width = `${percentage}%`;
+        }
+
+        // --- Cognitive Thinking Indicators ---
+        function showThinkingCard() {
+            hideThinkingCard();
+
+            const card = document.createElement('div');
+            card.className = 'console-row assistant thinking-card-row';
+            card.id = 'thinking-indicator-card';
+            
+            card.innerHTML = `
+                <div class="console-bubble thinking-bubble">
+                    <div class="thinking-header">
+                        <div class="thinking-dot"></div>
+                        <div class="thinking-title">Cognitive Operations</div>
+                    </div>
+                    <div class="thinking-steps">
+                        <div class="thinking-step active" id="step-analyze">
+                            <span class="step-bullet">■</span>
+                            <span class="step-text">Analyzing query intent...</span>
+                        </div>
+                        <div class="thinking-step" id="step-search">
+                            <span class="step-bullet">□</span>
+                            <span class="step-text">Searching the web...</span>
+                        </div>
+                        <div class="thinking-step" id="step-verify">
+                            <span class="step-bullet">□</span>
+                            <span class="step-text">Verifying and filtering facts...</span>
+                        </div>
+                        <div class="thinking-step" id="step-respond">
+                            <span class="step-bullet">□</span>
+                            <span class="step-text">Synthesizing final response...</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            messagesViewport.appendChild(card);
+            messagesViewport.scrollTop = messagesViewport.scrollHeight;
+
+            let currentStep = 0;
+            const steps = [
+                { id: 'step-analyze' },
+                { id: 'step-search' },
+                { id: 'step-verify' },
+                { id: 'step-respond' }
+            ];
+
+            thinkingTimer = setInterval(() => {
+                if (currentStep < steps.length - 1) {
+                    const prevEl = document.getElementById(steps[currentStep].id);
+                    if (prevEl) {
+                        prevEl.className = 'thinking-step completed';
+                        prevEl.querySelector('.step-bullet').textContent = '■';
+                    }
+                    
+                    currentStep++;
+                    const nextEl = document.getElementById(steps[currentStep].id);
+                    if (nextEl) {
+                        nextEl.className = 'thinking-step active';
+                        nextEl.querySelector('.step-bullet').textContent = '■';
+                    }
+                }
+            }, 1000);
+        }
+
+        function hideThinkingCard() {
+            if (thinkingTimer) {
+                clearInterval(thinkingTimer);
+                thinkingTimer = null;
+            }
+            const el = document.getElementById('thinking-indicator-card');
+            if (el) {
+                el.remove();
+            }
         }
 
         async function sendMessage() {
@@ -1138,6 +1608,7 @@
             appendMessage('user', message);
             consoleInputBox.value = '';
             setThinking(true);
+            showThinkingCard();
 
             const startTime = performance.now();
 
@@ -1149,9 +1620,9 @@
                     logEvent('sys', 'ERROR: Pipeline is down. Message dropped.');
                     appendSystemMessage("SYSTEM ERROR: WebSocket not connected.");
                     setThinking(false);
+                    hideThinkingCard();
                 }
             } else {
-                // REST path
                 logEvent('net', `Dispatching POST /api/chat. Payload size: ${message.length} bytes`);
                 try {
                     const response = await fetch('/api/chat', {
@@ -1167,15 +1638,16 @@
 
                     const duration = Math.round(performance.now() - startTime);
                     metricLatency.textContent = `${duration} ms`;
-                    // Visual chart
                     const chartWidth = Math.min((duration / 2000) * 100, 100);
                     metricLatencyChart.style.width = `${chartWidth}%`;
 
                     setThinking(false);
+                    hideThinkingCard();
+                    
                     if (response.ok) {
                         const data = await response.json();
                         logEvent('agent', `REST Response payload received (took ${duration}ms)`);
-                        appendMessage('assistant', data.response);
+                        typeMessage('assistant', data.response);
                         incrementMemoryBlock();
                     } else {
                         const errData = await response.json().catch(() => ({}));
@@ -1184,6 +1656,7 @@
                     }
                 } catch (err) {
                     setThinking(false);
+                    hideThinkingCard();
                     logEvent('net', `CONNECTION REFUSED: ${err.message}`);
                     appendMessage('assistant', `CLIENT NETWORK ERROR: Could not resolve gateway host.`);
                 }
@@ -1230,14 +1703,52 @@
         }
 
         // --- Render UI Helpers ---
-        function appendMessage(sender, text) {
+        function typeMessage(sender, text) {
             const row = document.createElement('div');
             row.className = `console-row ${sender}`;
 
             const bubble = document.createElement('div');
             bubble.className = 'console-bubble';
             
-            // Render text with line breaks
+            if (sender === 'assistant') {
+                bubble.innerHTML = '';
+                bubble.classList.add('typing-active');
+            }
+
+            const time = document.createElement('span');
+            time.className = 'bubble-time';
+            time.textContent = new Date().toLocaleTimeString([], { hour12: false, hour: '2-digit', minute: '2-digit' });
+
+            row.appendChild(bubble);
+            messagesViewport.appendChild(row);
+            messagesViewport.scrollTop = messagesViewport.scrollHeight;
+
+            let index = 0;
+            const speed = 10;
+            
+            function type() {
+                if (index < text.length) {
+                    bubble.innerHTML = text.substring(0, index + 1).replace(/\n/g, '<br>');
+                    bubble.appendChild(time);
+                    index += 2;
+                    messagesViewport.scrollTop = messagesViewport.scrollHeight;
+                    setTimeout(type, speed);
+                } else {
+                    bubble.innerHTML = text.replace(/\n/g, '<br>');
+                    bubble.appendChild(time);
+                    bubble.classList.remove('typing-active');
+                    messagesViewport.scrollTop = messagesViewport.scrollHeight;
+                }
+            }
+            type();
+        }
+
+        function appendMessage(sender, text) {
+            const row = document.createElement('div');
+            row.className = `console-row ${sender}`;
+
+            const bubble = document.createElement('div');
+            bubble.className = 'console-bubble';
             bubble.innerHTML = text.replace(/\n/g, '<br>');
 
             const time = document.createElement('span');

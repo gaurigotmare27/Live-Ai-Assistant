@@ -81,6 +81,20 @@ def delete_session(session_id: str, db: Session = Depends(get_db)):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to clear session history: {str(e)}")
 
+@app.get("/api/chat/{session_id}")
+def get_session_chat_history(session_id: str, db: Session = Depends(get_db)):
+    """Retrieve past chat history for a session."""
+    try:
+        from server.memory import get_session_history
+        db_history = get_session_history(db, session_id, limit=50)
+        return [
+            {"role": msg.role, "content": msg.content}
+            for msg in db_history
+        ]
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to retrieve session history: {str(e)}")
+
+
 @app.websocket("/ws/live/{session_id}")
 async def websocket_endpoint(websocket: WebSocket, session_id: str, db: Session = Depends(get_db)):
     """
