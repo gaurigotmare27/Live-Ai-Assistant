@@ -91,7 +91,8 @@ class LiveAIAgent:
         
         # 3. Setup tools
         tools_list = []
-        if self.config.get("tools", {}).get("web_search", {}).get("enabled", False):
+        if self.config.get("tools", {}).get("web_search", {}).get("enabled", False) or \
+           self.config.get("tools", {}).get("custom_actions", {}).get("enabled", False):
             tools_list = get_agent_tools()
             
         # Define generation config
